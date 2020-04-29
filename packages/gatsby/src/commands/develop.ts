@@ -2,6 +2,7 @@ import url from "url"
 import fs from "fs"
 import openurl from "better-opn"
 import chokidar from "chokidar"
+import { SchemaComposer } from "graphql-compose"
 
 import webpackHotMiddleware from "webpack-hot-middleware"
 import webpackDevMiddleware from "webpack-dev-middleware"
@@ -12,7 +13,7 @@ import webpack from "webpack"
 import graphqlHTTP from "express-graphql"
 import graphqlPlayground from "graphql-playground-middleware-express"
 import graphiqlExplorer from "gatsby-graphiql-explorer"
-import { formatError } from "graphql"
+import { formatError, GraphQLSchema } from "graphql"
 
 import webpackConfig from "../utils/webpack.config"
 import bootstrap from "../bootstrap"
@@ -179,7 +180,16 @@ async function startServer(program: IProgram): Promise<IServer> {
     graphqlEndpoint,
     graphqlHTTP(
       (): graphqlHTTP.OptionsData => {
-        const { schema, schemaCustomization } = store.getState()
+        const {
+          schema,
+          schemaCustomization,
+        }: {
+          schema: GraphQLSchema
+          schemaCustomization: {
+            composer: SchemaComposer<any>
+            context: any
+          }
+        } = store.getState()
 
         return {
           schema,
