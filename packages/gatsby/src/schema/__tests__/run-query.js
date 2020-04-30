@@ -1323,7 +1323,7 @@ it(`should use the cache argument`, async () => {
         it(`works for elemMatch on boolean field`, async () => {
           if (IS_LOKI) return
 
-          const [result] = await runSlowFilter({
+          const [result] = await runFastFilter({
             boolean: {
               elemMatch: {
                 eq: true,
@@ -1339,7 +1339,7 @@ it(`should use the cache argument`, async () => {
         it(`skips nodes without the field for elemMatch on boolean`, async () => {
           if (IS_LOKI) return
 
-          const [result] = await runSlowFilter({
+          const [result] = await runFastFilter({
             boolSecondOnly: {
               elemMatch: {
                 eq: false,
@@ -1355,7 +1355,7 @@ it(`should use the cache argument`, async () => {
         it(`works for elemMatch on string field`, async () => {
           if (IS_LOKI) return
 
-          const [result] = await runSlowFilter({
+          const [result] = await runFastFilter({
             string: {
               elemMatch: {
                 eq: `a`,
@@ -1371,7 +1371,7 @@ it(`should use the cache argument`, async () => {
         it(`should return all nodes for elemMatch on non-arrays too`, async () => {
           if (IS_LOKI) return
 
-          const [result] = await runSlowFilter({
+          const [result] = await runFastFilter({
             name: {
               elemMatch: {
                 eq: `The Mad Wax`,
@@ -1389,7 +1389,7 @@ it(`should use the cache argument`, async () => {
         it(`skips nodes without the field for elemMatch on string`, async () => {
           if (IS_LOKI) return
 
-          const [result] = await runSlowFilter({
+          const [result] = await runFastFilter({
             strSecondOnly: {
               elemMatch: {
                 eq: `needle`,
@@ -1405,7 +1405,7 @@ it(`should use the cache argument`, async () => {
         it(`works for elemMatch on number field`, async () => {
           if (IS_LOKI) return
 
-          const [result] = await runSlowFilter({
+          const [result] = await runFastFilter({
             float: {
               elemMatch: {
                 eq: 1.5,
