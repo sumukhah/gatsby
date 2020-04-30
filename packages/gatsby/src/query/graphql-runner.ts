@@ -131,7 +131,7 @@ export default class GraphQLRunner {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async query(
+  query(
     query: Query,
     context: Record<string, any>,
     { parentSpan, queryName }: IActivityArgs & { queryName: string }
