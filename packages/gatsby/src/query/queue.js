@@ -40,7 +40,7 @@ const createDevelopQueue = getRunner => {
     },
   }
 
-  const handler = (queryJob, callback) => {
+  const handler = ({ job: queryJob }, callback) => {
     queryRunner(getRunner(), queryJob).then(
       result => {
         if (queryJob.isPage) {
