@@ -445,7 +445,7 @@ module.exports = async (args: BootstrapArgs) => {
   })
   activity.start()
   await require(`../utils/source-nodes`)({ parentSpan: activity.span })
-  activity.setStatus(
+  console.info(
     `Now have ${store.getState().nodes.size} nodes with ${
       store.getState().nodesByType.size
     } types: [${[...store.getState().nodesByType.entries()]
@@ -493,12 +493,12 @@ module.exports = async (args: BootstrapArgs) => {
     },
     { activity }
   )
-  activity.setStatus(
+  console.info(
     `Now have ${store.getState().nodes.size} nodes with ${
       store.getState().nodesByType.size
-    } types: [${[...store.getState().nodesByType.entries()]
-      .map(([type, nodes]) => type + `:` + nodes.size)
-      .join(`, `)}]`
+    } types, and ${
+      store.getState().nodesByType?.get(`SitePage`).size
+    } SitePage nodes`
   )
   activity.end()
 
