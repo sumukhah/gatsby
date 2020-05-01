@@ -445,6 +445,13 @@ module.exports = async (args: BootstrapArgs) => {
   })
   activity.start()
   await require(`../utils/source-nodes`)({ parentSpan: activity.span })
+  activity.setStatus(
+    `Now have ${store.getState().nodes.size} nodes with ${
+      store.getState().nodesByType.size
+    } types: [${[...store.getState().nodesByType.entries()]
+      .map(([type, nodes]) => type + `:` + nodes.size)
+      .join(`, `)}]`
+  )
   activity.end()
 
   // Create Schema.
@@ -485,6 +492,13 @@ module.exports = async (args: BootstrapArgs) => {
       parentSpan: activity.span,
     },
     { activity }
+  )
+  activity.setStatus(
+    `Now have ${store.getState().nodes.size} nodes with ${
+      store.getState().nodesByType.size
+    } types: [${[...store.getState().nodesByType.entries()]
+      .map(([type, nodes]) => type + `:` + nodes.size)
+      .join(`, `)}]`
   )
   activity.end()
 
